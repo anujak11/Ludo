@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LudoBoard</title>
+    <style>
+         body, html {
+            height: 100%;
+            margin:  0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;  
+        }
+
+    .background{
+        background-image: url(Ludo/dice.jpg);
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat ;
+        background-size: cover;
+    }
+              
+    .board{
+       margin:0 auto;
+        margin-top: 200px;
+        border: 2px solid black;
+        width: fit-content;
+    }
+    .row{
+        display: flex;
+    }
+    .red{
+        background-color: red;
+    }
+    .green{
+        background-color: green;
+    }
+    .yellow{
+        background-color: yellow;
+    }
+    .blue{
+        background-color: blue;
+    }
+    .red_box{
+        width: 250px;
+        height: 250px;
+        background-color: red;
+        border: 1px solid black;
+    }
+    .green_box{
+        width: 250px;
+        height: 250px;
+        background-color: green;
+        border: 1px solid black;
+    }
+    .yellow_box{
+        width: 250px;
+        height: 250px;
+        background-color: yellow;
+        border: 1px solid black;
+    }
+    .blue_box{
+        width: 250px;
+        height: 250px;
+        background-color: blue;
+        border: 1px solid black;
+
+    }
+    .white_box{
+          width: 150px;
+          height: 150px;
+          background-color: white;
+          margin: 45px;
+          border: 2px solid black;
+    }
+    .white_box .circle{
+          width: 40px;
+          height: 40px;
+          border-radius: 50px;
+          float: left;
+          margin: 16px;
+          border: 1px solid black;
+    }
+    .cell{
+        width: 40px;
+        height: 40px;
+        border: 1px solid black;
+    }
+    .destination{
+        
+        border-top: 55px solid green;
+        border-left: 55px solid red;
+        border-right: 55px solid yellow;
+        border-bottom: 55px solid blue;
+       
+        #animate {
+           width: 80px;
+           height: 80px;
+           position: absolute;
+           background-color: pink;
+}
+    }
+    cont{
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  font-family: 'fontawesome';
+  height: 100vh;
+}
+.cont .cube{
+  position: relative;
+  left: 45%;
+  top: 40%;
+  height: 200px;
+  width: 200px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transform: rotateX(135deg) rotateY(-217deg) rotateZ(-88deg);
+}
+.cont .cube div{
+  position: absolute;
+  box-sizing: border-box;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  border:2px solid #eee;
+  color: #fff;
+}
+.cont .cube div span{
+  font-size: 32px;
+  font-family: 'fontawesome';
+}
+.cont .cube .front{
+  background: #000;
+  transform: translateZ(100px);
+}
+.cont .cube .back{
+  background: #000;
+  transform: translateZ(-100px) rotateY(180deg);
+}
+.cont .cube .right{
+  background: #000;
+  transform-origin: top right;
+  transform: rotateY(-270deg) translateX(100px);
+}
+.cont .cube .left{
+  background: #000;
+  transform-origin: center left;
+  transform: rotateY(270deg) translateX(-100px);
+}
+.cont .cube .top{
+  background: #000;
+  transform-origin: top center;
+  transform: rotateX(-270deg) translateY(-100px);
+}
+.cont .cube .bottom{
+  background: #000;
+  transform-origin: bottom center;
+  transform: rotateX(270deg) translateY(100px);
+}
+
+/*DOT ALIGNMENT */
+.cont .cube .front span,.cont .cube .left span:nth-child(1),
+.cont .cube .right span:nth-child(1){
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.cont .cube .top span:nth-child(1),.cont .cube .left span:nth-child(2),
+.cont .cube .right span:nth-child(2),
+.cont .cube .bottom span:nth-child(1){
+  position: absolute;
+  top: 35px;
+  left: 35px;
+}
+.cont .cube .top span:nth-child(2),.cont .cube .left span:nth-child(3),
+.cont .cube .right span:nth-child(3),
+.cont .cube .bottom span:nth-child(2){
+  position: absolute;
+  bottom: 35px;
+  right: 35px;
+}
+.cont .cube .right span:nth-child(4),
+.cont .cube .bottom span:nth-child(3){
+  position: absolute;
+  top: 35px;
+  right: 35px;
+}
+.cont .cube .right span:nth-child(5),
+.cont .cube .bottom span:nth-child(4){
+  position: absolute;
+  bottom: 35px;
+  left: 35px;
+}
+.cont .cube .back pre{
+  font-size: 32px;
+  font-family: 'fontawesome';
+  margin: 0;
+}
+.cont .cube .back .firstPre{
+  position: absolute;
+  top: 45px;
+  left: 26px;
+}
+.cont .cube .back .secondPre{
+  position: absolute;
+  bottom: 45px;
+  right: 26px;
+}
+@keyframes animate {
+  25%{
+    transform: rotateX(45deg) rotateY(65deg) rotateZ(35deg);
+    top: 0%;
+  }
+  50%{
+    transform: rotateX(145deg) rotateY(165deg) rotateZ(135deg);
+    top: 30%;
+  }
+  75%{
+    transform: rotateX(276deg) rotateY(256deg) rotateZ(246deg);
+    top: 45%;
+  }
+  100%{
+    transform: rotateX(376deg) rotateY(356deg) rotateZ(346deg);
+    top: 60%;
+  }
+}
+     </style>
+</head>
+<body>
+    <div class="cont">
+		<div class="cube" id="cube">
+			<div class="front">
+				<span class="fas fa-circle"></span>
+			</div>
+			<div class="back">
+					
+					<pre class="firstPre"><span class="fas fa-circle"></span>    <span class="fas fa-circle"></span>    <span class="fas fa-circle"></span></pre><br>
+					<pre class="secondPre"><span class="fas fa-circle"></span>    <span class="fas fa-circle"></span>    <span class="fas fa-circle"></span></pre>
+			</div>
+			<div class="top">
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+			</div>
+			<div class="left">
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+
+			</div>
+			<div class="right">
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+
+			</div>
+			<div class="bottom">
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+				<span class="fas fa-circle"></span>
+
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		let cube = document.getElementById('cube');
+
+		angleArray = [[0,0,0],[-310,-362,-38],[-400,-320,-2],[135,-217,-88],[-224,-317,5],[-47,-219,-81],[-133,-360,-53]];
+		
+		cube.addEventListener('click',function(e){
+
+		
+			cube.style.animation = 'animate 1.4s linear';
+
+			const randomAngle = Math.floor(Math.random() * 6) + 1;
+			
+			cube.style.transform = 'rotateX('+angleArray[randomAngle][0]+'deg) rotateY('+angleArray[randomAngle][1]+'deg) rotateZ('+angleArray[randomAngle][2]+'deg)';
+			cube.style.transition = '1s linear'
+
+			cube.addEventListener('animationend',function(e){
+				cube.style.animation = '';
+			});
+		});
+	</script>
+</body>
+</html>
+         <div class="container">
+        <div class="background">
+        <div class="board">  
+        <div class="row">
+            <div class="red">
+            <div class="white_box">
+                <div class="red circle"></div>
+                <div class="red circle"></div>
+                <div class="red circle"></div>
+                <div class="red circle"></div>
+            </div>
+            </div>
+            <div class="cell_container">
+
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell "> <span style="font-size: 40px;color: green;margin-left: 10px;" class="arrow">&darr;</span></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell green "></div>
+                    <div class="cell green"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"> <span style="font-size: 40px;" class="star">&#9733;</span></div>
+                    <div class="cell green "></div>
+                    <div class="cell "></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell green "></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell green "></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell green"></div>
+                    <div class="cell "></div>
+                </div>
+        </div>
+        <div class="green">
+            <div class="white_box">
+                <div class="green circle"></div>
+                <div class="green circle"></div>
+                <div class="green circle"></div>
+                <div class="green circle"></div>
+            </div>
+            </div>
+        </div>   
+
+             <div class="row">
+            <div class="cell_container">
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell red"></div>
+                    <div class="cell "></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"><span style="font-size: 40px;color: red;" class="arrow">&rarr;</span></div>
+                    <div class="cell red "></div>
+                    <div class="cell red"></div>
+                    <div class="cell red"></div>
+                    <div class="cell red"></div>
+                    <div class="cell red"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                    <div class="cell"> <span style="font-size: 40px;" class="star">&#9733;</span></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                    <div class="cell"></div>
+                </div>
+                </div> 
+                
+                <div class="destination"></div>
+                <div class="cell_container">
+                    <div class="row">
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"><span style="font-size: 40px;" class="star">&#9733;</span></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                    </div>
+                    <div class="row">
+                        <div class="cell yellow"></div>
+                        <div class="cell yellow"></div>
+                        <div class="cell yellow"></div>
+                        <div class="cell yellow"></div>
+                        <div class="cell yellow"></div>
+                        <div class="cell"> <span style="font-size: 40px;color: yellow;" class="arrow">&larr;</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell yellow"> </div>
+                        <div class="cell"></div>
+                        </div>
+                </div>
+           </div>
+        <div class="row">
+            <div class="blue">
+            <div class="white_box">
+                <div class="blue circle"></div>
+                <div class="blue circle"></div>
+                <div class="blue circle"></div>
+                <div class="blue circle"></div>
+            </div>
+            </div>
+            <div class="cell_container">
+
+                <div class="row">
+                    <div class="cell "></div>
+                    <div class="cell blue "></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell blue"></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell blue"></div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell blue"></div>
+                    <div class="cell"> <span style="font-size: 40px;" class="star">&#9733;</span></div>
+                </div>
+                <div class="row">
+                    <div class="cell blue  "></div>
+                    <div class="cell blue "> </div>
+                    <div class="cell"></div>
+                </div>
+                <div class="row">
+                    <div class="cell"></div>
+                    <div class="cell"> <span style="font-size: 40px; color: blue; margin-left: 10px;" class="arrow">&uarr;</span></div>
+                    <div class="cell"></div>
+                </div>
+        </div>
+        <div class="yellow">
+            <div class="white_box">
+                <div class="yellow circle"></div>
+                <div class="yellow  circle"></div>
+                <div class="yellow  circle"></div>
+                <div class="yellow  circle"></div>
+            </div>
+            </div>
+            
+    </div>   
+</div>
+</div>
+</div>
+
+</body>
+</html>
